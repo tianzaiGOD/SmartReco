@@ -1,0 +1,12 @@
+# Program List
+- **cli**: The start point of SmartReco dynamic analysis.
+- **revm**: Customized EVM.
+- **src**: The main logic of replay and verification module.
+    - **evm**
+        - **onchain**: Responsible for retrieving data from local service.
+        - **replay**: Responsible for replay transaction and record contextual information.
+        - **contract_utils.rs**: Responsible for fetching contract data and information.
+        - **host.rs**: Responsible for invoking and monitoring EVM execution.
+        - **vm.rs**: Responsible for verifying the presence of ROR.
+    - **fuzzers**: Initialization of replay and validation.
+    - **cache.rs**: Responsible for recording the results to a local file.

@@ -1,0 +1,67 @@
+[package]
+name = "smartReco"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dev-dependencies]
+criterion = "0.4.0"
+
+[[bench]]
+name = "smartReco"
+harness = false
+
+[features]
+default = ["cmp", "dataflow", "evm", "print_txn_corpus", "full_trace", ]
+evm = []
+cmp = []
+dataflow = []
+evaluation = []
+ondisk_corpus = []
+# need to turn off when running DV contracts
+deployer_is_attacker = []
+print_infant_corpus = []
+print_txn_corpus = []
+fuzz_static = []
+flashloan_v2 = []
+full_trace = []
+force_cache = []
+use_presets = []
+print_logs = []
+z3_debug = []
+service = []
+
+
+[dependencies]
+bytes = { version = "1.2.1", features = ["serde"] }
+revm = { path = "./revm/crates/revm", features = ["no_gas_measuring", "serde"] }
+revm-primitives = { path = "./revm/crates/primitives", features = ["no_gas_measuring", "serde"] }
+revm-interpreter = { path = "./revm/crates/interpreter", features = ["no_gas_measuring", "serde"] }
+hex = "0.4"
+primitive-types = { version = "0.12.1", features = ["rlp", "serde"] }
+libafl = "0.8.2"
+rand = "0.8.5"
+nix = "0.24"
+serde = "1.0.147"
+serde_traitobject = "0.2.7"
+serde_json = "1.0.73"
+z3 = {version="0.11.2", features = ["static-link-z3"]}
+z3-sys = "0.7.1"
+glob = "0.3.0"
+rust-crypto = "0.2"
+itertools = "0.10.2"
+reqwest = { version = "0.11", features = ["blocking", "json"] }
+once_cell = "1.8.0"
+permutator = "0.4.3"
+either = "1.8.0"
+regex = "1"
+csv = "1.1"
+# external fuzzing-based abi decompiler
+heimdall = { path = "./externals/heimdall-rs/heimdall" }
+
+
+
+
+
+retry = "2.0.0"
+serde_cbor = "0.11.2"

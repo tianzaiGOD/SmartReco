@@ -1,0 +1,14 @@
+*.pyc
+__pycache__
+.vscode
+result/*
+dataset/
+crytic-export/
+/test
+record_data/
+slither/
+slither_analyzer.egg-info/
+cache
+
+/result
+*.txt

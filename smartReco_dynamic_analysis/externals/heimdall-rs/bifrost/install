@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -e
+
+BIFROST_PATH=${BIFROST_PATH:-"$HOME/.bifrost"}
+BIFROST_BIN_DIR="$BIFROST_PATH/bin"
+
+BIFROST_BINARY="https://raw.githubusercontent.com/Jon-Becker/heimdall-rs/main/bifrost/bifrost"
+
+# Create the bifrost directory and install the bifrost executable in it.
+mkdir -p $BIFROST_BIN_DIR
+curl -# -L $BIFROST_BINARY -o "$BIFROST_BIN_DIR/bifrost"
+chmod +x "$BIFROST_BIN_DIR/bifrost"
+
+# Only add bifrost to the path if it's not already there.
+if [[ ":$PATH:" != *":${BIFROST_BIN_DIR}:"* ]]; then
+
+    # Detect the current shell being used for the installation
+    case $SHELL in
+        */zsh)
+            SHELL_PROFILE=$HOME/.zshrc
+            echo >> $SHELL_PROFILE && echo "export PATH=\"\$PATH:$BIFROST_BIN_DIR\"" >> $SHELL_PROFILE
+            ;;
+        */bash)
+            SHELL_PROFILE=$HOME/.bashrc
+            echo >> $SHELL_PROFILE && echo "export PATH=\"\$PATH:$BIFROST_BIN_DIR\"" >> $SHELL_PROFILE
+            SHELL_PROFILE=$HOME/.bash_profile
+            echo >> $SHELL_PROFILE && echo "export PATH=\"\$PATH:$BIFROST_BIN_DIR\"" >> $SHELL_PROFILE
+            ;;
+        */fish)
+            SHELL_PROFILE=$HOME/.config/fish/config.fish
+            echo >> $SHELL_PROFILE && echo "export PATH=\"\$PATH:$BIFROST_BIN_DIR\"" >> $SHELL_PROFILE
+            ;;
+        *)
+            echo "bifrost: Look's like you're using a shell that is not recognized by bifrost. Please manually add ${BIFROST_BIN_DIR} to your PATH."
+            exit 1
+    esac
+
+fi
+
+echo && echo "bifrost: Installation complete."
+echo "Open a new terminal and run 'bifrost' to install Heimdall."

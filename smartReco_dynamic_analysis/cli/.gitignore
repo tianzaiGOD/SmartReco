@@ -1,0 +1,8 @@
+target
+cli
+solutions
+corpus
+log*
+cache
+
+work_dir
